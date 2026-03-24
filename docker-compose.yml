@@ -1,0 +1,6 @@
+services:
+  auth.api:
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .
+      dockerfile: src/backend/AuthService/Auth.API/Dockerfile

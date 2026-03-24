@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/docs/">
+    <File Path="docs/arquitectura.md" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/backend/" />
+  <Folder Name="/src/backend/AuthService/">
+    <Project Path="src/backend/AuthService/Auth.API/Auth.API.csproj" />
+    <Project Path="src/backend/AuthService/Auth.Application/Auth.Application.csproj" />
+    <Project Path="src/backend/AuthService/Auth.Domain/Auth.Domain.csproj" />
+    <Project Path="src/backend/AuthService/Auth.Infrastructure/Auth.Infrastructure.csproj" />
+  </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+</Solution>
