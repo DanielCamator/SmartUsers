@@ -143,4 +143,4 @@ networks:
     driver: bridge
 ```
 
-# Autor: Daniel Camacho | Software Engineer
+# Autor: Daniel Camacho

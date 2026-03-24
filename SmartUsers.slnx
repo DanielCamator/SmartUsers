@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/docs/">
     <File Path="docs/arquitectura.md" />
+    <File Path="docs/diagnostico_falla.md" />
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/backend/" />
