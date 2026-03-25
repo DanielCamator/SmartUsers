@@ -4,9 +4,11 @@ using MediatR;
 
 namespace Auth.Application.Commands.Login;
 
-public record LoginRequest(string Email, string Password) : IRequest<string>;
+public record LoginRequest(string Email, string Password) : IRequest<LoginResponse>;
 
-public class LoginHandler : IRequestHandler<LoginRequest, string>
+public record LoginResponse(bool Success, string? Token = null, string? Error = null);
+
+public class LoginHandler : IRequestHandler<LoginRequest, LoginResponse>
 {
     private readonly IAuthUserRepository _repository;
     private readonly IJwtGenerator _jwtGenerator;
@@ -17,13 +19,17 @@ public class LoginHandler : IRequestHandler<LoginRequest, string>
         _jwtGenerator = jwtGenerator;
     }
 
-    public async Task<string> Handle(LoginRequest request, CancellationToken ct)
+    public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken ct)
     {
         var user = await _repository.GetByEmailAsync(request.Email);
 
-        if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-            throw new UnauthorizedAccessException("Credenciales inválidas.");
+        if (user == null)
+            return new LoginResponse(Success: false, Error: "Credenciales inválidas.");
 
-        return _jwtGenerator.GenerateToken(user);
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            return new LoginResponse(Success: false, Error: "Credenciales inválidas.");
+
+        var token = _jwtGenerator.GenerateToken(user);
+        return new LoginResponse(Success: true, Token: token);
     }
 }

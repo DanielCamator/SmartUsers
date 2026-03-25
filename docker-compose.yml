@@ -14,12 +14,21 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - smartusers-network
 
   mongodb:
     image: mongo:latest
     container_name: mongodb
     ports:
       - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - smartusers-network
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -32,6 +41,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - smartusers-network
 
   user.api:
     build:
@@ -39,18 +50,22 @@ services:
       dockerfile: src/backend/UserService/User.API/Dockerfile
     container_name: user_api
     environment:
-      - MT_LICENSE=Community
       - RabbitMq__Host=rabbitmq
+      - RabbitMq__Username=guest
+      - RabbitMq__Password=guest
       - ConnectionStrings__UserDbConnection=Host=postgres-db;Database=SmartUsersUserDb;Username=postgres;Password=Y1bug9o365vo
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:8081
     ports:
-      - "5002:80"
+      - "5000:8081"
     depends_on:
       postgres-db:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+    networks:
+      - smartusers-network
+    restart: on-failure
 
   auth.api:
     build:
@@ -58,18 +73,22 @@ services:
       dockerfile: src/backend/AuthService/Auth.API/Dockerfile
     container_name: auth_api
     environment:
-      - MT_LICENSE=Community
       - RabbitMq__Host=rabbitmq
+      - RabbitMq__Username=guest
+      - RabbitMq__Password=guest
       - ConnectionStrings__AuthDbConnection=Host=postgres-db;Database=SmartUsersAuthDb;Username=postgres;Password=Y1bug9o365vo
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:8081
     ports:
-      - "5001:80"
+      - "5002:8081"
     depends_on:
       postgres-db:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+    networks:
+      - smartusers-network
+    restart: on-failure
 
   audit.api:
     build:
@@ -77,14 +96,38 @@ services:
       dockerfile: src/backend/AuditService/Audit.API/Dockerfile
     container_name: audit_api
     environment:
-      - MT_LICENSE=Community
       - RabbitMq__Host=rabbitmq
+      - RabbitMq__Username=guest
+      - RabbitMq__Password=guest
       - MongoDb__ConnectionString=mongodb://mongodb:27017
       - MongoDb__DatabaseName=SmartUsersAuditDb
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:8081
     ports:
-      - "5003:80"
+      - "5001:8081"
     depends_on:
       rabbitmq:
         condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - smartusers-network
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+    container_name: frontend_app
+    ports:
+      - "3000:80"
+    depends_on:
+      - user.api
+      - auth.api
+    networks:
+      - smartusers-network
+    restart: on-failure
+
+networks:
+  smartusers-network:
+    driver: bridge

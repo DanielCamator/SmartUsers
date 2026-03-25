@@ -8,11 +8,16 @@ Este repositorio contiene la resolución completa de la prueba técnica para la 
 
 ## 🚀 Inicio Rápido (Docker)
 
-Para levantar todo el ecosistema (Bases de Datos, Bus de Mensajería, Backend y Frontend), asegúrese de tener Docker instalado y ejecute:
+El proyecto está 100% dockerizado. Para levantar todo el ecosistema (Bases de Datos, Bus de Mensajería, Backend y Frontend), asegúrese de tener Docker instalado y ejecute en la raíz del proyecto:
 
-```bash
-docker-compose up --build
-```
+docker-compose up -d --build
+
+Una vez que los contenedores estén en ejecución, podrá acceder a:
+
+- **UI Frontend:** http://localhost:3000
+- **Auth API:** Puerto 5002
+- **User API:** Puerto 5000
+- **Audit API:** Puerto 5001
 
 ---
 
@@ -34,7 +39,11 @@ Implementación de servicios independientes con .NET 10, comunicación síncrona
 
 ### 💻 3. Desarrollo Front-end
 
-Interfaz de usuario en React/TypeScript con gestión de estado y consumo de APIs de microservicios.
+Interfaz de usuario robusta en React/TypeScript.
+
+- Gestión de estado global con **Zustand**.
+- Validación de esquemas con **React Hook Form + Zod**.
+- Testing de componentes y lógica con **Vitest + React Testing Library**.
 
 ### 🔍 4. Análisis y Diagnóstico
 
@@ -52,14 +61,17 @@ Implementación de agente de IA con pipeline de RAG (Retrieval-Augmented Generat
 
 ## 🛠️ Stack Tecnológico
 
-- **Backend:** .NET 10 (C#), Entity Framework Core, MediatR (CQRS).
-- **Frontend:** React + TypeScript + Redux Toolkit.
+- **Backend:** .NET 10 (C#), Entity Framework Core, MediatR (CQRS), MassTransit.
+- **Frontend:** React 18, TypeScript, Vite, Zustand, Tailwind CSS.
 - **Mensajería:** RabbitMQ.
 - **Persistencia:** PostgreSQL, MongoDB, Redis Stack (Vector DB).
-- **IA:** Semantic Kernel / Azure OpenAI API.
+- **IA:** Semantic Kernel, OpenAI API, Pinecone, Groq.
 
 ---
 
 ### 👨‍💻 Autor
 
-**Daniel Camacho**
+**Daniel Camacho** - Senior Software Engineer | Backend, Cloud & AI
+
+- 🌐 **Portafolio Web:** [daniel-camacho.net](https://daniel-camacho.net/)
+- 💼 **LinkedIn:** [linkedin.com/in/daniel-ct](https://linkedin.com/in/daniel-ct)

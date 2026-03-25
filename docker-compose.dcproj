@@ -6,10 +6,26 @@
     <ProjectGuid>81dded9d-158b-e303-5f62-77a2896d2a5a</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="clean-smartusers.ps1" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
+    <None Include="docker-compose.prestashop.yml" />
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="DOCKER-MANAGEMENT.md" />
+    <None Include="FRONTEND_CONFIG.md" />
+    <None Include="logs-smartusers.ps1" />
+    <None Include="PRESTASHOP-RECOVERY.md" />
+    <None Include="rebuild-services.ps1" />
+    <None Include="rebuild-smartusers.ps1" />
+    <None Include="start-docker.ps1" />
+    <None Include="start-prestashop.ps1" />
+    <None Include="start-services.ps1" />
+    <None Include="start-smartusers.ps1" />
+    <None Include="stop-prestashop.ps1" />
+    <None Include="stop-services.ps1" />
+    <None Include="stop-smartusers.ps1" />
+    <None Include="test-audit.ps1" />
   </ItemGroup>
 </Project>

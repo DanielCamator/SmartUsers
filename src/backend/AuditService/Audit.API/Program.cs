@@ -34,12 +34,10 @@ var databaseName = mongoSection["DatabaseName"] ?? "AuditDb";
 Log.Information("🔌 MongoDB Connection: {ConnectionString}", connectionString);
 Log.Information("📦 MongoDB Database: {DatabaseName}", databaseName);
 
-// Registrar MongoDB como singleton ANTES de MassTransit
 var mongoClient = new MongoClient(connectionString);
 builder.Services.AddSingleton<IMongoClient>(mongoClient);
 builder.Services.AddSingleton(databaseName);
 
-// Verificar conexión a MongoDB en startup
 try
 {
     var adminDatabase = mongoClient.GetDatabase("admin");

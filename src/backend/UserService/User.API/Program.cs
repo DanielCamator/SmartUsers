@@ -39,13 +39,11 @@ builder.Services.AddMassTransit(x =>
             h.Password(builder.Configuration["RabbitMq:Password"] ?? "guest");
         });
 
-        // Configurar el endpoint para publicar UserCreatedEvent
         cfg.Message<UserCreatedEvent>(x =>
         {
             x.SetEntityName("user-created");
         });
 
-        // Configurar el publish endpoint
         cfg.Publish<UserCreatedEvent>(x =>
         {
             x.ExchangeType = "fanout";
@@ -73,12 +71,30 @@ builder.Services.AddAuthorization();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(
+                "http://localhost:3000",      // Docker
+                "http://localhost:5173",      // Vite dev server
+                "http://127.0.0.1:3000",
+                "http://127.0.0.1:5173"
+            )
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 app.UseExceptionHandler();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("AllowFrontend");
 
 using (var scope = app.Services.CreateScope())
 {

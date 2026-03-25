@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using MassTransit;
 using Serilog;
+using Shared.Contracts.Events;
 using Auth.Infrastructure.Persistence;
 using Auth.Application.Interfaces;
 using Auth.Infrastructure.Repositories;
 using Auth.Infrastructure.Security;
 using Auth.Application.Consumers;
+using Auth.Api.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,18 +36,47 @@ builder.Services.AddMassTransit(x =>
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host(builder.Configuration["RabbitMq:Host"] ?? "rabbitmq", "/", h => {
-            h.Username("guest");
-            h.Password("guest");
-        });
+            h.Username(builder.Configuration["RabbitMq:Username"] ?? "guest");
+            h.Password(builder.Configuration["RabbitMq:Password"] ?? "guest");
+    });
+
+        cfg.Message<UserCreatedEvent>(x =>
+        {
+            x.SetEntityName("user-created");
+});
 
         cfg.ReceiveEndpoint("auth-registration-sync-queue", e =>
         {
             e.ConfigureConsumer<SyncUserConsumer>(context);
+            e.Bind<UserCreatedEvent>();
         });
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(
+                "http://localhost:3000",      // Docker
+                "http://localhost:5173",      // Vite dev server
+                "http://127.0.0.1:3000",
+                "http://127.0.0.1:5173"
+            )
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
 var app = builder.Build();
+
+app.UseExceptionHandler();
+
+app.UseCors("AllowFrontend");
 
 using (var scope = app.Services.CreateScope())
 {
