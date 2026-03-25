@@ -5,11 +5,28 @@
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/backend/" />
+  <Folder Name="/src/backend/AuditService/">
+    <Project Path="src/backend/AuditService/Audit.API/Audit.API.csproj" Id="5ced07ea-ddb4-4925-9592-5a30deff0c88" />
+    <Project Path="src/backend/AuditService/Audit.Application/Audit.Application.csproj" Id="8b2687ad-7681-46b5-a1c5-1b83afd2e973" />
+    <Project Path="src/backend/AuditService/Audit.Domain/Audit.Domain.csproj" Id="e6efe965-904b-4238-b6ef-76bb73a01bc0" />
+    <Project Path="src/backend/AuditService/Audit.Infrastructure/Audit.Infrastructure.csproj" Id="3c21fad0-835e-4c8f-a1f1-96d09ec715c3" />
+  </Folder>
   <Folder Name="/src/backend/AuthService/">
     <Project Path="src/backend/AuthService/Auth.API/Auth.API.csproj" />
+    <Project Path="src/backend/AuthService/Auth.Application.Tests/Auth.Application.Tests.csproj" Id="ae524c61-929e-4450-8c75-3d39fd4fcc6b" />
     <Project Path="src/backend/AuthService/Auth.Application/Auth.Application.csproj" />
     <Project Path="src/backend/AuthService/Auth.Domain/Auth.Domain.csproj" />
     <Project Path="src/backend/AuthService/Auth.Infrastructure/Auth.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/backend/Shared/">
+    <Project Path="src/backend/Shared/Shared.Contracts/Shared.Contracts.csproj" Id="ab0d8960-bd8d-4134-9e8d-07c7e319e118" />
+  </Folder>
+  <Folder Name="/src/backend/UserService/">
+    <Project Path="src/backend/UserService/User.API/User.API.csproj" Id="ddc458df-0843-4658-8b4a-703b404fe753" />
+    <Project Path="src/backend/UserService/User.Application.Tests/User.Application.Tests.csproj" Id="b937f568-963c-4c80-98fb-829d9d3cb10f" />
+    <Project Path="src/backend/UserService/User.Application/User.Application.csproj" Id="731a1c80-e24c-4028-84a0-c73fb9fb4ee9" />
+    <Project Path="src/backend/UserService/User.Domain/User.Domain.csproj" Id="6d5f47c1-37fd-40e6-ac7b-8b6bc748d3f0" />
+    <Project Path="src/backend/UserService/User.Infrastructure/User.Infrastructure.csproj" Id="6fe39b84-a435-4fa7-8e26-2965462911a6" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
