@@ -114,6 +114,24 @@ services:
       - smartusers-network
     restart: on-failure
 
+  ai.api:
+    build:
+      context: .
+      dockerfile: src/backend/AIService/API/Dockerfile
+    container_name: ai_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8081
+      - OpenAI__ApiKey=${OPENAI_API_KEY}
+      - Groq__ApiKey=${GROQ_API_KEY}
+      - Pinecone__ApiKey=${PINECONE_API_KEY}
+      - Pinecone__IndexName=smartusers
+    ports:
+      - "5003:8081"
+    networks:
+      - smartusers-network
+    restart: on-failure
+
   frontend:
     build:
       context: ./src/frontend

@@ -1,0 +1,7 @@
+{
+  "PortfolioChunks": [
+    "El sistema SmartUsers maneja tres roles principales: Administrador (acceso total, crear/eliminar usuarios y roles), Supervisor (crear/editar usuarios, sin permisos de eliminación) y Auditor (solo lectura de logs en MongoDB).",
+    "Política de Contraseñas de SmartUsers: Todas las contraseñas nuevas deben tener un mínimo de 12 caracteres, incluir al menos una mayúscula, una minúscula, un número y un carácter especial. Las contraseñas expiran automáticamente cada 90 días.",
+    "Auditoría y Logs: Cada vez que un usuario inicia sesión, falla un intento de login, o modifica un registro, el microservicio Audit.API guarda un evento en MongoDB. Este evento incluye el ID del usuario, la fecha exacta en UTC y la acción realizada."
+  ]
+}

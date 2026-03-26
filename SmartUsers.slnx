@@ -5,6 +5,12 @@
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/backend/" />
+  <Folder Name="/src/backend/AIService/">
+    <Project Path="src/backend/AIService/Api/Api.csproj" />
+    <Project Path="src/backend/AIService/Application/Application.csproj" />
+    <Project Path="src/backend/AIService/Domain/Domain.csproj" />
+    <Project Path="src/backend/AIService/Infrastructure/Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/src/backend/AuditService/">
     <Project Path="src/backend/AuditService/Audit.API/Audit.API.csproj" Id="5ced07ea-ddb4-4925-9592-5a30deff0c88" />
     <Project Path="src/backend/AuditService/Audit.Application/Audit.Application.csproj" Id="8b2687ad-7681-46b5-a1c5-1b83afd2e973" />

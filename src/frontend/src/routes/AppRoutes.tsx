@@ -6,6 +6,7 @@ import RegisterPage from '../pages/RegisterPage';
 import DashboardPage from '../pages/DashboardPage';
 import ProfilePage from '../pages/ProfilePage';
 import AuthLayout from '../components/AuthLayout';
+import AiChatWidget from '../components/AiChatWidget';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuth = useAuthStore((state) => state.isAuthenticated);
@@ -25,6 +26,7 @@ export const AppRoutes = () => {
           <Route path="/dashboard" element={<DashboardPage />} />
         </Route>
       </Routes>
+      <AiChatWidget />
     </BrowserRouter>
   );
 };
