@@ -56,6 +56,9 @@ services:
       - ConnectionStrings__UserDbConnection=Host=postgres-db;Database=SmartUsersUserDb;Username=postgres;Password=Y1bug9o365vo
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8081
+      - Jwt__Key=${JWT_KEY}
+      - Jwt__Issuer=${JWT_ISSUER}
+      - Jwt__Audience=${JWT_AUDIENCE}
     ports:
       - "5000:8081"
     depends_on:

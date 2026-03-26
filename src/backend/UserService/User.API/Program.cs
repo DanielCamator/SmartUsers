@@ -76,8 +76,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy.WithOrigins(
-                "http://localhost:3000",      // Docker
-                "http://localhost:5173",      // Vite dev server
+                "http://localhost:3000",
+                "http://localhost:5173",
                 "http://127.0.0.1:3000",
                 "http://127.0.0.1:5173"
             )
@@ -90,11 +90,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseExceptionHandler();
-
+app.UseRouting();
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors("AllowFrontend");
 
 using (var scope = app.Services.CreateScope())
 {
