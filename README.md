@@ -95,6 +95,14 @@ Si desea realizar cambios en el código y ver los resultados en tiempo real (HMR
 3. Inicie el servidor de desarrollo: `npm run dev`
 4. Acceda a: `http://localhost:5173` (o el puerto indicado por Vite).
 
+#### 🤖 Highlight: Asistente de IA (Chatbot Widget)
+
+Como pieza central de la integración de Inteligencia Artificial, se desarrolló un widget de chat interactivo con características de nivel producción:
+
+- **Observabilidad en Tiempo Real:** Renderizado visual de los metadatos exactos del LLM por cada interacción (Latencia en milisegundos, Desglose de Tokens Input/Output y Costo Estimado en USD).
+
+![SmartUsers AI Chatbot](./docs/assets/ChatBot_ScreenShot.png)
+
 #### 🧪 Testing y Calidad
 
 Para asegurar la estabilidad de la UI, se implementaron pruebas unitarias y de integración:
