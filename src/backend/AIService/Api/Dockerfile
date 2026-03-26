@@ -12,7 +12,7 @@ COPY ["src/backend/AIService/Domain/Domain.csproj", "src/backend/AIService/Domai
 COPY ["src/backend/AIService/Infrastructure/Infrastructure.csproj", "src/backend/AIService/Infrastructure/"]
 RUN dotnet restore "./src/backend/AIService/Api/Api.csproj"
 COPY . .
-WORKDIR "/src/backend/AIService/Api"
+WORKDIR "/src/src/backend/AIService/Api"
 RUN dotnet build "./Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
